@@ -2,7 +2,7 @@
 import tkinter as tk
 from moduals.file import new_file, open_file, save_file, save_as_file, toggle_topmost
 from moduals.color import change_bg_color, choose_custom_color
-from moduals.binds import bind_shortcuts 
+from moduals.binds import bind_shortcuts
 
 class NotepadApp:
     def __init__(self, master):
@@ -11,6 +11,7 @@ class NotepadApp:
         master.geometry("600x400")
         master.configure(bg="pale goldenrod")
         self.topmost_var = tk.BooleanVar(value=True)
+        self.master.attributes('-topmost', self.topmost_var.get())
         self.create_widgets()
         self.create_menu()
         bind_shortcuts(self) 
@@ -42,7 +43,7 @@ class NotepadApp:
         # Color menu
         color_menu = tk.Menu(menu_bar, tearoff=0)
         menu_bar.add_cascade(label="Color", menu=color_menu)
-        color_menu.add_command(label="Pale Violet Red", command=lambda: change_bg_color(self, "pale violet red"))
+        color_menu.add_command(label="Notepad Yellow", command=lambda: change_bg_color(self, "pale goldenrod"))
         color_menu.add_command(label="Thistle", command=lambda: change_bg_color(self, "thistle2"))
         color_menu.add_command(label="Pale Turquoise", command=lambda: change_bg_color(self, "pale turquoise"))
         color_menu.add_command(label="Dark Sea Green", command=lambda: change_bg_color(self, "DarkSeaGreen1"))

@@ -6,32 +6,41 @@ from moduals.color import change_bg_color, choose_custom_color
 
 
 def new_window(app):
-    new_win = Toplevel(app.master)
+    # Create a new window (top-level window)
+    new_win = tk.Toplevel(app.master)
     new_win.geometry("600x400")
-    new_win.configure(bg=app.text_area.cget("bg"))  # Same background color as current window
     new_win.title("New Notepad Window")
 
-    # Create a new text area for the new window
+    # Make the new window topmost
+    new_win.topmost_var = tk.BooleanVar(value=True)
+    new_win.attributes('-topmost', new_win.topmost_var.get())  # Apply topmost only to new window
+
+    # Configure the background to match the main app's text area background color
+    new_win.configure(bg=app.text_area.cget("bg"))
+
+    # Create a new text area in the new window
     new_text_area = tk.Text(new_win, bg=app.text_area.cget("bg"))
     new_text_area.pack(expand=True, fill='both')
 
-    # Set up the menu bar for the new window
+    # Create the menu bar for the new window
     menu_bar = tk.Menu(new_win)
 
     # File menu
     file_menu = tk.Menu(menu_bar, tearoff=0)
     menu_bar.add_cascade(label="File", menu=file_menu)
-    file_menu.add_command(label="New", command=lambda: new_file(app))  # Reuse same file commands
+    file_menu.add_command(label="New", command=lambda: new_window(app))  # Recursively open new windows
     file_menu.add_command(label="Open", command=lambda: open_file(app))
     file_menu.add_command(label="Save", command=lambda: save_file(app))
     file_menu.add_command(label="Save As", command=lambda: save_as_file(app))
+    file_menu.add_checkbutton(label=" Float", onvalue=True, offvalue=False, variable=new_win.topmost_var,
+                              command=lambda: toggle_topmost(app))
     file_menu.add_separator()
     file_menu.add_command(label="Exit", command=new_win.quit)
 
     # Color menu
     color_menu = tk.Menu(menu_bar, tearoff=0)
     menu_bar.add_cascade(label="Color", menu=color_menu)
-    color_menu.add_command(label="Pale Violet Red", command=lambda: change_bg_color(app, "pale violet red"))
+    color_menu.add_command(label="Notepad Yellow", command=lambda: change_bg_color(app, "pale goldenrod"))
     color_menu.add_command(label="Thistle", command=lambda: change_bg_color(app, "thistle2"))
     color_menu.add_command(label="Pale Turquoise", command=lambda: change_bg_color(app, "pale turquoise"))
     color_menu.add_command(label="Dark Sea Green", command=lambda: change_bg_color(app, "DarkSeaGreen1"))
@@ -39,15 +48,16 @@ def new_window(app):
     color_menu.add_command(label="Lavender", command=lambda: change_bg_color(app, "lavender"))
     color_menu.add_command(label="Choose...", command=lambda: choose_custom_color(app))
 
+    # Apply the menu bar to the new window
     new_win.config(menu=menu_bar)
-
 
 
 def find_text(app, open_replace=False):
     # Create the Find window
     find_win = Toplevel(app.master)
     find_win.title("Find")
-    find_win.geometry("300x100")
+    find_win.geometry("400x100")
+    find_win.attributes('-topmost', True)
     
     Label(find_win, text="Find:").grid(row=0, column=0, padx=5, pady=5)
     
@@ -66,7 +76,8 @@ def find_text(app, open_replace=False):
 
 def open_replace_menu(app, find_win, search_entry):
     # Expand the Find window into Find and Replace mode
-    find_win.geometry("300x150")
+    find_win.geometry("400x150")
+    find_win.attributes('-topmost', True)
     
     Label(find_win, text="Replace:").grid(row=1, column=0, padx=5, pady=5)
     
@@ -124,5 +135,5 @@ def bind_shortcuts(app):
     # Bindings for shortcuts
     app.master.bind("<Control-n>", lambda event: new_window(app))
     app.master.bind("<Control-f>", lambda event: find_text(app))
-    app.master.bind("<Control-h>", lambda event: find_text(app, open_replace=True))  # Directly open Find and Replace
+    app.master.bind("<Control-h>", lambda event: find_text(app, open_replace=True)) 
     app.master.bind('<Control-BackSpace>', delete_word)
