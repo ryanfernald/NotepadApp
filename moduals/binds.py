@@ -3,26 +3,26 @@ import tkinter as tk
 from tkinter import Toplevel, Label, Entry, Button
 from moduals.file import new_file, open_file, save_file, save_as_file
 from moduals.color import change_bg_color, choose_custom_color
-
+from tkinter import font
 
 def new_window(app):
     # Create a new window (top-level window)
     new_win = tk.Toplevel(app.master)
     new_win.geometry("600x400")
     new_win.title("New Notepad Window")
+    new_win.focus_set()  # Set focus to the new window
 
-    # Make the new window topmost
     new_win.topmost_var = tk.BooleanVar(value=True)
-    new_win.attributes('-topmost', new_win.topmost_var.get())  # Apply topmost only to new window
+    new_win.attributes('-topmost', new_win.topmost_var.get()) 
 
-    # Configure the background to match the main app's text area background color
     new_win.configure(bg=app.text_area.cget("bg"))
 
-    # Create a new text area in the new window
-    new_text_area = tk.Text(new_win, bg=app.text_area.cget("bg"))
+    new_text_area = tk.Text(new_win, bg=app.text_area.cget("bg"), font=("Segoe Print", 14))
     new_text_area.pack(expand=True, fill='both')
 
-    # Create the menu bar for the new window
+    # Store the text area in the new window instance
+    new_win.text_area = new_text_area
+
     menu_bar = tk.Menu(new_win)
 
     # File menu
@@ -32,8 +32,8 @@ def new_window(app):
     file_menu.add_command(label="Open", command=lambda: open_file(app))
     file_menu.add_command(label="Save", command=lambda: save_file(app))
     file_menu.add_command(label="Save As", command=lambda: save_as_file(app))
-    file_menu.add_checkbutton(label=" Float", onvalue=True, offvalue=False, variable=new_win.topmost_var,
-                              command=lambda: toggle_topmost(app))
+    file_menu.add_checkbutton(label="Float", onvalue=True, offvalue=False, variable=new_win.topmost_var,
+                          command=lambda: toggle_topmost(new_win))
     file_menu.add_separator()
     file_menu.add_command(label="Exit", command=new_win.quit)
 
@@ -51,12 +51,23 @@ def new_window(app):
     # Apply the menu bar to the new window
     new_win.config(menu=menu_bar)
 
+    # Apply the shortcuts to the new window as well
+    bind_shortcuts(new_win)
+
+    return new_win
+
+def toggle_topmost(window):
+    window.attributes('-topmost', window.topmost_var.get())
 
 def find_text(app, open_replace=False):
+
+    # Use app.master if no new window is passed
+    active_win = app if isinstance(app, tk.Tk) else app.master
+
     # Create the Find window
     find_win = Toplevel(app.master)
     find_win.title("Find")
-    find_win.geometry("400x100")
+    find_win.geometry("400x150")  # Wider size
     find_win.attributes('-topmost', True)
     
     Label(find_win, text="Find:").grid(row=0, column=0, padx=5, pady=5)
@@ -76,7 +87,7 @@ def find_text(app, open_replace=False):
 
 def open_replace_menu(app, find_win, search_entry):
     # Expand the Find window into Find and Replace mode
-    find_win.geometry("400x150")
+    find_win.geometry("350x150")
     find_win.attributes('-topmost', True)
     
     Label(find_win, text="Replace:").grid(row=1, column=0, padx=5, pady=5)
@@ -105,35 +116,35 @@ def replace_all(app, search_text, replace_text):
     app.text_area.insert(tk.END, new_content)
 
 def highlight_text(app, search_text):
+    # Determine if the function is running on the main app window or a new window
+    text_area = app.text_area if hasattr(app, 'text_area') else app.master.text_area
+
     # Remove previous highlights
-    app.text_area.tag_remove('highlight', '1.0', tk.END)
+    text_area.tag_remove('highlight', '1.0', tk.END)
     
     if search_text:
         start_pos = '1.0'
         while True:
-            start_pos = app.text_area.search(search_text, start_pos, stopindex=tk.END)
+            start_pos = text_area.search(search_text, start_pos, stopindex=tk.END)
             if not start_pos:
                 break
             end_pos = f"{start_pos}+{len(search_text)}c"
-            app.text_area.tag_add('highlight', start_pos, end_pos)
-            app.text_area.tag_config('highlight', background='yellow')
+            text_area.tag_add('highlight', start_pos, end_pos)
+            text_area.tag_config('highlight', background='yellow')
             start_pos = end_pos
 
 def delete_word(event):
-    # Get the current cursor position
     pos = event.widget.index(tk.INSERT)
-    # Move the cursor backward to find the start of the previous word
-    while pos != '1.0':  # Don't go past the start of the text widget
+    while pos != '1.0': 
         char = event.widget.get(pos + '-1c')
         if char.isspace() or char in ',.;:!?()[]{}\'"':
             break
         pos = event.widget.index(pos + '-1c')
-    # Delete from the current cursor position to the found position
     event.widget.delete(pos, tk.INSERT)
 
 def bind_shortcuts(app):
     # Bindings for shortcuts
     app.master.bind("<Control-n>", lambda event: new_window(app))
     app.master.bind("<Control-f>", lambda event: find_text(app))
-    app.master.bind("<Control-h>", lambda event: find_text(app, open_replace=True)) 
+    app.master.bind("<Control-h>", lambda event: find_text(app, open_replace=True))
     app.master.bind('<Control-BackSpace>', delete_word)

@@ -3,6 +3,7 @@ import tkinter as tk
 from moduals.file import new_file, open_file, save_file, save_as_file, toggle_topmost
 from moduals.color import change_bg_color, choose_custom_color
 from moduals.binds import bind_shortcuts
+from tkinter import font
 
 class NotepadApp:
     def __init__(self, master):
@@ -18,7 +19,7 @@ class NotepadApp:
 
     def create_widgets(self):
         # Create the text widget for writing
-        self.text_area = tk.Text(self.master, wrap='word', undo=True, bg="pale goldenrod", font=("Rosewood Std Regular", 12))
+        self.text_area = tk.Text(self.master, wrap='word', undo=True, bg="pale goldenrod", font=("Segoe Print", 14))
         self.text_area.pack(fill='both', expand=True)
         self.file_path = None  # To store current file path
 
@@ -36,7 +37,7 @@ class NotepadApp:
         file_menu.add_command(label="Save As", command=lambda: save_as_file(self))
         file_menu.add_checkbutton(label=" Float", onvalue=True, offvalue=False,
                           variable=self.topmost_var,
-                          command=lambda: toggle_topmost(self))
+                          command=lambda: toggle_topmost(app))
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.master.quit)
 
