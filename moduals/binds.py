@@ -1,7 +1,7 @@
 # moduals/binds.py
 import tkinter as tk
 from tkinter import Toplevel, Label, Entry, Button
-from moduals.file import new_file, open_file, save_file, save_as_file
+from moduals.file import new_file, open_file, save_file, save_as_file, mark_as_modified
 from moduals.color import change_bg_color, choose_custom_color
 from tkinter import font
 import platform
@@ -160,3 +160,5 @@ def bind_shortcuts(app):
         app.master.bind("<Control-f>", lambda event: find_text(app))
         app.master.bind("<Control-h>", lambda event: find_text(app, open_replace=True))
         app.master.bind('<Control-BackSpace>', delete_word)
+
+        app.master.bind("<Key>", lambda event: mark_as_modified(event, app))

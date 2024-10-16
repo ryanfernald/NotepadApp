@@ -1,6 +1,6 @@
 # moduals/app.py
 import tkinter as tk
-from moduals.file import new_file, open_file, save_file, save_as_file, toggle_topmost
+from moduals.file import new_file, open_file, save_file, save_as_file, toggle_topmost, mark_as_modified
 from moduals.color import change_bg_color, choose_custom_color
 from moduals.binds import bind_shortcuts
 from tkinter import font
@@ -16,6 +16,10 @@ class NotepadApp:
         self.create_widgets()
         self.create_menu()
         bind_shortcuts(self) 
+
+    def setup_text_area(app):
+        app.text_area.bind("<<Modified>>", lambda event: mark_as_modified(app))
+        app.is_modified = False
 
     def create_widgets(self):
         # Create the text widget for writing

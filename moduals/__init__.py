@@ -10,5 +10,6 @@ __all__ = [
     "choose_custom_color",
     "new_window",
     "find_text",
-    "open_replace_menu"
+    "open_replace_menu",
+    "mark_as_modified"
 ]
