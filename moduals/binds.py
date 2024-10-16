@@ -4,6 +4,7 @@ from tkinter import Toplevel, Label, Entry, Button
 from moduals.file import new_file, open_file, save_file, save_as_file
 from moduals.color import change_bg_color, choose_custom_color
 from tkinter import font
+import platform
 
 def new_window(app):
     # Create a new window (top-level window)
@@ -87,7 +88,7 @@ def find_text(app, open_replace=False):
 
 def open_replace_menu(app, find_win, search_entry):
     # Expand the Find window into Find and Replace mode
-    find_win.geometry("350x150")
+    find_win.geometry("400x150")
     find_win.attributes('-topmost', True)
     
     Label(find_win, text="Replace:").grid(row=1, column=0, padx=5, pady=5)
@@ -143,8 +144,19 @@ def delete_word(event):
     event.widget.delete(pos, tk.INSERT)
 
 def bind_shortcuts(app):
-    # Bindings for shortcuts
-    app.master.bind("<Control-n>", lambda event: new_window(app))
-    app.master.bind("<Control-f>", lambda event: find_text(app))
-    app.master.bind("<Control-h>", lambda event: find_text(app, open_replace=True))
-    app.master.bind('<Control-BackSpace>', delete_word)
+    if platform.system() == 'Darwin':  # Mac OS
+        app.master.bind("<Command-n>", lambda event: new_window(app))
+        app.master.bind("<Command-o>", lambda event: open_file(app))
+        app.master.bind("<Command-s>", lambda event: save_file(app))
+        app.master.bind("<Command-Shift-s>", lambda event: save_as_file(app))
+        app.master.bind("<Command-f>", lambda event: find_text(app))
+        app.master.bind("<Command-h>", lambda event: find_text(app, open_replace=True))
+        app.master.bind('<Command-BackSpace>', delete_word)
+    else:  # Windows/Linux
+        app.master.bind("<Control-n>", lambda event: new_window(app))
+        app.master.bind("<Control-o>", lambda event: open_file(app))
+        app.master.bind("<Control-s>", lambda event: save_file(app))
+        app.master.bind("<Control-Shift-s>", lambda event: save_as_file(app))
+        app.master.bind("<Control-f>", lambda event: find_text(app))
+        app.master.bind("<Control-h>", lambda event: find_text(app, open_replace=True))
+        app.master.bind('<Control-BackSpace>', delete_word)
