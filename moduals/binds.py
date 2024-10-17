@@ -68,7 +68,7 @@ def find_text(app, open_replace=False):
     # Create the Find window
     find_win = Toplevel(app.master)
     find_win.title("Find")
-    find_win.geometry("400x150")  # Wider size
+    find_win.geometry("400x150")  
     find_win.attributes('-topmost', True)
     
     Label(find_win, text="Find:").grid(row=0, column=0, padx=5, pady=5)
@@ -103,6 +103,10 @@ def open_replace_menu(app, find_win, search_entry):
     Button(find_win, text="Replace All", command=lambda: replace_all(app, search_entry.get(), replace_entry.get())).grid(row=2, column=1, padx=5, pady=5)
     
 def replace_one(app, search_text, replace_text):
+    # Handle special case for carriage return
+    if replace_text == "\\n":
+        replace_text = "\n"
+
     content = app.text_area.get("1.0", tk.END)
     start_index = content.find(search_text)
     if start_index >= 0:
@@ -111,6 +115,10 @@ def replace_one(app, search_text, replace_text):
         app.text_area.insert(f"1.0+{start_index}c", replace_text)
 
 def replace_all(app, search_text, replace_text):
+    # Handle special case for carriage return
+    if replace_text == "\\n":
+        replace_text = "\n"
+        
     content = app.text_area.get("1.0", tk.END)
     new_content = content.replace(search_text, replace_text)
     app.text_area.delete("1.0", tk.END)
