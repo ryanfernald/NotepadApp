@@ -11,5 +11,11 @@ __all__ = [
     "new_window",
     "find_text",
     "open_replace_menu",
-    "mark_as_modified"
+    "mark_as_modified",
+    "schedule_spell_check",
+    "check_spelling",
+    "create_context_menu",
+    "show_suggestions_menu",
+    "replace_word",
+    "adjust_font_size",
 ]

@@ -13,6 +13,7 @@ class NotepadApp:
         master.configure(bg="pale goldenrod")
         self.topmost_var = tk.BooleanVar(value=True)
         self.master.attributes('-topmost', self.topmost_var.get())
+        self.text_font = font.Font(family="Bradley Hand", size=18, weight="bold")
         self.create_widgets()
         self.create_menu()
         bind_shortcuts(self)
@@ -20,12 +21,13 @@ class NotepadApp:
         self.spell_checker = SpellChecker()
         self.check_spelling_job = None
         self.text_area.bind("<<Modified>>", self.schedule_spell_check)
-        self.text_area.bind("<Command-r>", self.show_suggestions_menu)  # Command+R binding on macOS
+        self.text_area.bind("<Command-r>", self.show_suggestions_menu)
         self.create_context_menu()
 
     def create_widgets(self):
-        self.text_area = tk.Text(self.master, wrap='word', undo=True, bg="pale goldenrod", font=("Segoe Print", 14))
+        self.text_area = tk.Text(self.master, wrap='word', undo=True, bg="pale goldenrod", font=self.text_font)
         self.text_area.pack(fill='both', expand=True)
+        self.text_area.focus_set()
         self.file_path = None
         self.text_area.tag_configure("misspelled", underline=True, foreground="red")
 

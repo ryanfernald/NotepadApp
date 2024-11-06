@@ -151,6 +151,11 @@ def delete_word(event):
         pos = event.widget.index(pos + '-1c')
     event.widget.delete(pos, tk.INSERT)
 
+def adjust_font_size(app, increment):
+    new_size = app.text_font.cget("size") + increment
+    if new_size > 0: 
+        app.text_font.configure(size=new_size)
+
 def bind_shortcuts(app):
     if platform.system() == 'Darwin':  # Mac OS
         app.master.bind("<Command-n>", lambda event: new_window(app))
@@ -159,7 +164,10 @@ def bind_shortcuts(app):
         app.master.bind("<Command-Shift-s>", lambda event: save_as_file(app))
         app.master.bind("<Command-f>", lambda event: find_text(app))
         app.master.bind("<Command-h>", lambda event: find_text(app, open_replace=True))
-        app.master.bind('<Command-BackSpace>', delete_word)
+        app.master.bind("<Command-BackSpace>", delete_word)
+        app.master.bind("<Command-=>", lambda event: adjust_font_size(app, 1)) 
+        app.master.bind("<Command-minus>", lambda event: adjust_font_size(app, -1)) 
+
     else:  # Windows/Linux
         app.master.bind("<Control-n>", lambda event: new_window(app))
         app.master.bind("<Control-o>", lambda event: open_file(app))
@@ -167,6 +175,8 @@ def bind_shortcuts(app):
         app.master.bind("<Control-Shift-s>", lambda event: save_as_file(app))
         app.master.bind("<Control-f>", lambda event: find_text(app))
         app.master.bind("<Control-h>", lambda event: find_text(app, open_replace=True))
-        app.master.bind('<Control-BackSpace>', delete_word)
+        app.master.bind("<Control-BackSpace>", delete_word)
+        app.master.bind("<Control-=>", lambda event: adjust_font_size(app, 1)) 
+        app.master.bind("<Control-minus>", lambda event: adjust_font_size(app, -1)) 
 
         app.master.bind("<Key>", lambda event: mark_as_modified(event, app))
