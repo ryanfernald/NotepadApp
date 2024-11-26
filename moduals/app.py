@@ -22,6 +22,7 @@ class NotepadApp:
         self.check_spelling_job = None
         self.text_area.bind("<<Modified>>", self.schedule_spell_check)
         self.text_area.bind("<Command-r>", self.show_suggestions_menu)
+        self.text_area.bind("<Button-2>", self.show_suggestions_menu)
         self.create_context_menu()
 
     def create_widgets(self):

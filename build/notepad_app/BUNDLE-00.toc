@@ -1,0 +1,3 @@
+([('notepad_app',
+   '/Users/chuck/Documents/GitHub/NotepadApp/dist/notepad_app',
+   'EXECUTABLE')],)

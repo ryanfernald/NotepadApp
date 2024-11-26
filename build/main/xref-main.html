@@ -169,6 +169,7 @@ imports:
  &#8226;   <a href="#re._constants">re._constants</a>
  &#8226;   <a href="#re._parser">re._parser</a>
  &#8226;   <a href="#reprlib">reprlib</a>
+ &#8226;   <a href="#spellchecker">spellchecker</a>
  &#8226;   <a href="#sre_compile">sre_compile</a>
  &#8226;   <a href="#sre_constants">sre_constants</a>
  &#8226;   <a href="#sre_parse">sre_parse</a>
@@ -223,8 +224,11 @@ imported by:
   <a target="code" href="/opt/miniconda3/envs/my_env/lib/python3.12/site-packages/PyInstaller/hooks/rthooks/pyi_rth_pkgutil.py" type="text/plain"><tt>pyi_rth_pkgutil.py</tt></a>
 <span class="moduletype">Script</span>  <div class="import">
 imports:
-    <a href="#pkgutil">pkgutil</a>
+    <a href="#_pyi_rth_utils">_pyi_rth_utils</a>
+ &#8226;   <a href="#pathlib">pathlib</a>
+ &#8226;   <a href="#pkgutil">pkgutil</a>
  &#8226;   <a href="#pyimod02_importers">pyimod02_importers</a>
+ &#8226;   <a href="#sys">sys</a>
 
   </div>
   <div class="import">
@@ -768,6 +772,23 @@ imports:
   <div class="import">
 imported by:
     <a href="#decimal">decimal</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="_pyi_rth_utils"></a>
+  <a target="code" href="/opt/miniconda3/envs/my_env/lib/python3.12/site-packages/PyInstaller/fake-modules/_pyi_rth_utils/__init__.py" type="text/plain"><tt>_pyi_rth_utils</tt></a>
+<span class="moduletype">Package</span>  <div class="import">
+imports:
+    <a href="#os">os</a>
+ &#8226;   <a href="#sys">sys</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#pyi_rth_pkgutil.py">pyi_rth_pkgutil.py</a>
 
   </div>
 
@@ -1990,7 +2011,6 @@ imported by:
  &#8226;   <a href="#email.charset">email.charset</a>
  &#8226;   <a href="#email.contentmanager">email.contentmanager</a>
  &#8226;   <a href="#email.feedparser">email.feedparser</a>
- &#8226;   <a href="#email.generator">email.generator</a>
  &#8226;   <a href="#email.header">email.header</a>
  &#8226;   <a href="#email.headerregistry">email.headerregistry</a>
  &#8226;   <a href="#email.message">email.message</a>
@@ -2028,7 +2048,6 @@ imported by:
 imports:
     <a href="#copy">copy</a>
  &#8226;   <a href="#email">email</a>
- &#8226;   <a href="#email.errors">email.errors</a>
  &#8226;   <a href="#email.utils">email.utils</a>
  &#8226;   <a href="#io">io</a>
  &#8226;   <a href="#random">random</a>
@@ -5187,7 +5206,6 @@ imports:
  &#8226;   <a href="#importlib">importlib</a>
  &#8226;   <a href="#importlib._bootstrap">importlib._bootstrap</a>
  &#8226;   <a href="#importlib._bootstrap_external">importlib._bootstrap_external</a>
- &#8226;   <a href="#importlib.machinery">importlib.machinery</a>
  &#8226;   <a href="#sys">sys</a>
  &#8226;   <a href="#warnings">warnings</a>
 
@@ -5319,8 +5337,7 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#importlib">importlib</a>
- &#8226;   <a href="#importlib.abc">importlib.abc</a>
+    <a href="#importlib.abc">importlib.abc</a>
  &#8226;   <a href="#inspect">inspect</a>
  &#8226;   <a href="#pkgutil">pkgutil</a>
  &#8226;   <a href="#py_compile">py_compile</a>
@@ -5720,7 +5737,6 @@ imports:
  &#8226;   <a href="#token">token</a>
  &#8226;   <a href="#tokenize">tokenize</a>
  &#8226;   <a href="#types">types</a>
- &#8226;   <a href="#weakref">weakref</a>
 
   </div>
   <div class="import">
@@ -6355,8 +6371,8 @@ imports:
  &#8226;   <a href="#io">io</a>
  &#8226;   <a href="#nt">nt</a>
  &#8226;   <a href="#ntpath">ntpath</a>
- &#8226;   <a href="#os.path">os.path</a>
  &#8226;   <a href="#posix">posix</a>
+ &#8226;   <a href="#posixpath">posixpath</a>
  &#8226;   <a href="#posixpath">posixpath</a>
  &#8226;   <a href="#stat">stat</a>
  &#8226;   <a href="#subprocess">subprocess</a>
@@ -6366,7 +6382,8 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#argparse">argparse</a>
+    <a href="#_pyi_rth_utils">_pyi_rth_utils</a>
+ &#8226;   <a href="#argparse">argparse</a>
  &#8226;   <a href="#bz2">bz2</a>
  &#8226;   <a href="#contextlib">contextlib</a>
  &#8226;   <a href="#email.utils">email.utils</a>
@@ -6390,11 +6407,11 @@ imported by:
  &#8226;   <a href="#mimetypes">mimetypes</a>
  &#8226;   <a href="#netrc">netrc</a>
  &#8226;   <a href="#ntpath">ntpath</a>
- &#8226;   <a href="#os.path">os.path</a>
  &#8226;   <a href="#pathlib">pathlib</a>
  &#8226;   <a href="#pkgutil">pkgutil</a>
  &#8226;   <a href="#platform">platform</a>
  &#8226;   <a href="#plistlib">plistlib</a>
+ &#8226;   <a href="#posixpath">posixpath</a>
  &#8226;   <a href="#posixpath">posixpath</a>
  &#8226;   <a href="#py_compile">py_compile</a>
  &#8226;   <a href="#pyi_rth__tkinter.py">pyi_rth__tkinter.py</a>
@@ -6413,26 +6430,6 @@ imported by:
  &#8226;   <a href="#xml.sax">xml.sax</a>
  &#8226;   <a href="#xml.sax.saxutils">xml.sax.saxutils</a>
  &#8226;   <a href="#zipfile">zipfile</a>
-
-  </div>
-
-</div>
-
-<div class="node">
-  <a name="os.path"></a>
-  <a target="code" href="" type="text/plain"><tt>os.path</tt></a>
-<span class="moduletype">AliasNode</span>  <div class="import">
-imports:
-    <a href="#os">os</a>
- &#8226;   <a href="#posixpath">posixpath</a>
-
-  </div>
-  <div class="import">
-imported by:
-    <a href="#os">os</a>
- &#8226;   <a href="#pkgutil">pkgutil</a>
- &#8226;   <a href="#py_compile">py_compile</a>
- &#8226;   <a href="#tracemalloc">tracemalloc</a>
 
   </div>
 
@@ -6467,6 +6464,7 @@ imported by:
  &#8226;   <a href="#importlib.resources._legacy">importlib.resources._legacy</a>
  &#8226;   <a href="#importlib.resources.abc">importlib.resources.abc</a>
  &#8226;   <a href="#importlib.resources.readers">importlib.resources.readers</a>
+ &#8226;   <a href="#pyi_rth_pkgutil.py">pyi_rth_pkgutil.py</a>
  &#8226;   <a href="#spellchecker.utils">spellchecker.utils</a>
  &#8226;   <a href="#zipfile._path">zipfile._path</a>
 
@@ -6515,7 +6513,7 @@ imports:
  &#8226;   <a href="#inspect">inspect</a>
  &#8226;   <a href="#marshal">marshal</a>
  &#8226;   <a href="#os">os</a>
- &#8226;   <a href="#os.path">os.path</a>
+ &#8226;   <a href="#posixpath">posixpath</a>
  &#8226;   <a href="#re">re</a>
  &#8226;   <a href="#sys">sys</a>
  &#8226;   <a href="#types">types</a>
@@ -6608,6 +6606,26 @@ imported by:
 
 <div class="node">
   <a name="posixpath"></a>
+  <a target="code" href="" type="text/plain"><tt>posixpath</tt></a>
+<span class="moduletype">AliasNode</span>  <div class="import">
+imports:
+    <a href="#os">os</a>
+ &#8226;   <a href="#posixpath">posixpath</a>
+
+  </div>
+  <div class="import">
+imported by:
+    <a href="#os">os</a>
+ &#8226;   <a href="#pkgutil">pkgutil</a>
+ &#8226;   <a href="#py_compile">py_compile</a>
+ &#8226;   <a href="#tracemalloc">tracemalloc</a>
+
+  </div>
+
+</div>
+
+<div class="node">
+  <a name="posixpath"></a>
   <a target="code" href="/opt/miniconda3/envs/my_env/lib/python3.12/posixpath.py" type="text/plain"><tt>posixpath</tt></a>
 <span class="moduletype">SourceModule</span>  <div class="import">
 imports:
@@ -6627,8 +6645,8 @@ imported by:
  &#8226;   <a href="#main.py">main.py</a>
  &#8226;   <a href="#mimetypes">mimetypes</a>
  &#8226;   <a href="#os">os</a>
- &#8226;   <a href="#os.path">os.path</a>
  &#8226;   <a href="#pathlib">pathlib</a>
+ &#8226;   <a href="#posixpath">posixpath</a>
  &#8226;   <a href="#zipfile._path">zipfile._path</a>
 
   </div>
@@ -6683,7 +6701,7 @@ imports:
  &#8226;   <a href="#importlib.machinery">importlib.machinery</a>
  &#8226;   <a href="#importlib.util">importlib.util</a>
  &#8226;   <a href="#os">os</a>
- &#8226;   <a href="#os.path">os.path</a>
+ &#8226;   <a href="#posixpath">posixpath</a>
  &#8226;   <a href="#sys">sys</a>
  &#8226;   <a href="#traceback">traceback</a>
 
@@ -7091,7 +7109,8 @@ imports:
   </div>
   <div class="import">
 imported by:
-    <a href="#moduals.app">moduals.app</a>
+    <a href="#main.py">main.py</a>
+ &#8226;   <a href="#moduals.app">moduals.app</a>
  &#8226;   <a href="#spellchecker.info">spellchecker.info</a>
  &#8226;   <a href="#spellchecker.spellchecker">spellchecker.spellchecker</a>
  &#8226;   <a href="#spellchecker.utils">spellchecker.utils</a>
@@ -7407,6 +7426,7 @@ imported by:
  &#8226;   <a href="#_compression">_compression</a>
  &#8226;   <a href="#_pydatetime">_pydatetime</a>
  &#8226;   <a href="#_pydecimal">_pydecimal</a>
+ &#8226;   <a href="#_pyi_rth_utils">_pyi_rth_utils</a>
  &#8226;   <a href="#argparse">argparse</a>
  &#8226;   <a href="#ast">ast</a>
  &#8226;   <a href="#base64">base64</a>
@@ -7452,6 +7472,7 @@ imported by:
  &#8226;   <a href="#py_compile">py_compile</a>
  &#8226;   <a href="#pyi_rth__tkinter.py">pyi_rth__tkinter.py</a>
  &#8226;   <a href="#pyi_rth_inspect.py">pyi_rth_inspect.py</a>
+ &#8226;   <a href="#pyi_rth_pkgutil.py">pyi_rth_pkgutil.py</a>
  &#8226;   <a href="#quopri">quopri</a>
  &#8226;   <a href="#re._compiler">re._compiler</a>
  &#8226;   <a href="#selectors">selectors</a>
@@ -7903,8 +7924,8 @@ imports:
  &#8226;   <a href="#fnmatch">fnmatch</a>
  &#8226;   <a href="#functools">functools</a>
  &#8226;   <a href="#linecache">linecache</a>
- &#8226;   <a href="#os.path">os.path</a>
  &#8226;   <a href="#pickle">pickle</a>
+ &#8226;   <a href="#posixpath">posixpath</a>
 
   </div>
   <div class="import">
@@ -8225,7 +8246,6 @@ imported by:
     <a href="#_threading_local">_threading_local</a>
  &#8226;   <a href="#copy">copy</a>
  &#8226;   <a href="#functools">functools</a>
- &#8226;   <a href="#inspect">inspect</a>
  &#8226;   <a href="#logging">logging</a>
  &#8226;   <a href="#main.py">main.py</a>
  &#8226;   <a href="#tempfile">tempfile</a>
