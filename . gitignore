@@ -1,0 +1,9 @@
+.Rhistory
+.gitattributes
+notepad_app.spec
+.main_spec
+notepad_script.command
+notepad_app
+main
+/dist
+/build
