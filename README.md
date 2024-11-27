@@ -25,6 +25,7 @@
 ## To Run:
 
 > pip install requirements.txt
+
 > python main.py
 ---
 ![Screenshot 2024-10-14 121319](https://github.com/user-attachments/assets/823ffa89-258b-4bde-90c3-f51346a1b1b3)
