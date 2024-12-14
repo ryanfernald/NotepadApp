@@ -1,10 +1,25 @@
 import tkinter as tk
 from tkinter import font, Menu
+import subprocess
 from spellchecker import SpellChecker
 from moduals.file import new_file, open_file, save_file, save_as_file, toggle_topmost, mark_as_modified
 from moduals.color import change_bg_color, choose_custom_color
 from moduals.binds import bind_shortcuts
 
+
+def is_macos_dark_mode():
+    try:
+        result = subprocess.run(
+            ["defaults", "read", "-g", "AppleInterfaceStyle"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+        return "Dark" in result.stdout
+    except Exception as e:
+        print(f"Error checking macOS dark mode: {e}")
+        return False
+    
 class NotepadApp:
     def __init__(self, master):
         self.master = master
@@ -16,6 +31,7 @@ class NotepadApp:
         self.text_font = font.Font(family="Bradley Hand", size=18, weight="bold")
         self.create_widgets()
         self.create_menu()
+        self.set_text_color_based_on_theme()
         bind_shortcuts(self)
 
         self.spell_checker = SpellChecker()
@@ -67,14 +83,32 @@ class NotepadApp:
         self.text_area.tag_remove("misspelled", "1.0", tk.END)
         words = self.text_area.get("1.0", tk.END).split()
         start_idx = "1.0"
+        punctuation = set("!\"#$%&()*+,-./:;<=>?@[\\]^_`{|}~")
 
         for word in words:
-            if word not in self.spell_checker:
-                start_idx = self.text_area.search(word, start_idx, stopindex=tk.END)
-                if start_idx:
-                    end_idx = f"{start_idx}+{len(word)}c"
-                    self.text_area.tag_add("misspelled", start_idx, end_idx)
-                    start_idx = end_idx
+            # Strip leading and trailing punctuation only
+            stripped_word = word.strip("".join(punctuation))
+
+            # Handle hyphenated words
+            if "-" in stripped_word:
+                parts = stripped_word.split("-")
+                if all(part in self.spell_checker for part in parts if part):  # Ensure all parts are valid words
+                    continue
+            
+            if "..." in stripped_word:
+                parts = stripped_word.split("...")
+                if all(part in self.spell_checker for part in parts if part):
+                    continue
+
+            # Ignore numbers and check spelling
+            if stripped_word.isdigit() or stripped_word in self.spell_checker:
+                continue
+
+            start_idx = self.text_area.search(word, start_idx, stopindex=tk.END)
+            if start_idx:
+                end_idx = f"{start_idx}+{len(word)}c"
+                self.text_area.tag_add("misspelled", start_idx, end_idx)
+                start_idx = end_idx
 
         self.text_area.edit_modified(False)
 
@@ -118,6 +152,10 @@ class NotepadApp:
         """Replace the highlighted word with the selected suggestion."""
         self.text_area.delete(start, end)
         self.text_area.insert(start, new_word)
+    
+    def set_text_color_based_on_theme(self):
+        if is_macos_dark_mode():
+            self.text_area.configure(fg="black", insertbackground="black")
 
 if __name__ == "__main__":
     root = tk.Tk()
